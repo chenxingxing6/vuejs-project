@@ -52,7 +52,7 @@
                     return {productId: good.id, productQuantity: good.count}
                 });
                 const ERR_OK = 0;
-                this.$http.post("/sell/buyer/order/create", {
+                this.$http.post("http://localhost:8080/sell/buyer/order/create", {
                     'openid': getCookie('openid'),
                     'phone': this.phone,
                     'name': this.name,
@@ -69,7 +69,6 @@
                       alert(respones.msg);
                     }
                 });
-
                 window.selectedGoods = '[]';
                 // 支付成功清空localstorage selectedGoods
 			}

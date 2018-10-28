@@ -10,10 +10,12 @@ export function saveToLocal(id, key, value) {
 		}
 	}
 	seller[id][key] = value;
+	console.log("******"+JSON.stringify(seller));
 	window.localStorage.__seller__ = JSON.stringify(seller);
 };
 
 export function loadFromLocal(id, key, def) {
+  console.log("loadFromLocal");
 	let seller = window.localStorage.__seller__;
 	if (!seller) {
 		return def;

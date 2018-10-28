@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="goods">
-      <div class="menu-wrapper" ref="menuWrapper">
+      <!--<div class="menu-wrapper" ref="menuWrapper">
         <ul>
           <li v-for="(item,index) in goods" class="menu-item" :class="{'current':currentIndex===index}"
               @click="selectMenu(index,$event)">
@@ -10,13 +10,13 @@
           </span>
           </li>
         </ul>
-      </div>
+      </div>-->
       <div class="foods-wrapper" ref="foodsWrapper">
         <ul>
           <li v-for="item in goods" class="food-list" ref="foodList">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li v-for="food in item.foods" class="food-item border-1px">
+              <li @click="selectFood(food,$event)" v-for="food in item.foods" class="food-item border-1px">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -51,8 +51,6 @@
   import shopcart from 'components/shopcart/shopcart';
   import cartcontrol from 'components/cartcontrol/cartcontrol';
   import food from 'components/food/food';
-  var config = require('config')
-  config = process.env.NODE_ENV === 'development' ? config.dev : config.build
   const ERR_OK = 0;
 
   export default {
@@ -94,26 +92,16 @@
       }
     },
     created() {
-        //如果url里有openid, 设置进cookie
-        var openid = this.$route.query.openid;
-        if(typeof openid !== 'undefined') {
-	    var exp = new Date();
-            exp.setTime(exp.getTime() + 3600 * 1000);//过期时间60分钟
-            document.cookie = 'openid=' + openid + ";expires=" + exp.toGMTString();
-        }
-        //获取openid
-        if(getCookie('openid') == null) {
-             location.href = config.openidUrl + '?returnUrl=' +  encodeURIComponent(config.sellUrl + '/#/');
-        }
+      console.log('ggggg', this.goods);
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
       let selectedGoods = window.selectedGoods;
       selectedGoods = selectedGoods ? JSON.parse(selectedGoods) : [];
-      this.$http.get('/sell/buyer/product/list').then((response) => {
+      this.$http.get('/api/goods').then((response) => {
         response = response.body;
-        if (response.code === ERR_OK) {
+       /* if (response.code === ERR_OK) {
           selectedGoods.map(item => {
             response.data.map((food, index) => {
-//              console.log(food);
+              console.log(food);
               food.foods.map((foods, i) => {
                 // console.log(foods, item);
                 if (foods.id === item.id) {
@@ -123,14 +111,13 @@
                 }
               });
             });
-          });
+          });*/
           this.goods = response.data;
-//          console.log('hello world', this.goods);
-          this.$nextTick(() => {
-            this._initScroll();
+          console.log('hello world', this.goods);
+          this.$nextTick(() =>{
+             this._initScroll();
             this._calculateHeight();
           });
-        }
       });
     },
     methods: {
@@ -150,6 +137,7 @@
         this.$refs.food.show();
       },
       addFood(target, food) {
+        console.log('oh yeah this food', food);
         this._drop(target);
       },
       _drop(target) {
@@ -159,9 +147,9 @@
         });
       },
       _initScroll() {
-        this.meunScroll = new BScroll(this.$refs.menuWrapper, {
+       /* this.meunScroll = new BScroll(this.$refs.menuWrapper, {
           click: true
-        });
+        });*/
 
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
           click: true,
@@ -189,15 +177,6 @@
       food
     }
   };
-
-  function getCookie(name) {
-      var arr;
-      var reg = new RegExp('(^| )' +name+"=([^;]*)(;|$)");
-      if(arr=document.cookie.match(reg))
-          return unescape(arr[2]);
-      else
-          return null;
-  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

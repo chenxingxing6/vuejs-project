@@ -54,7 +54,7 @@
         this.changeHash();
       });
       if (this.showHeader) {
-        this.$http.get('/sell/api/seller.json').then((response) => {
+        this.$http.get('/api/seller').then((response) => {
           response = response.body;
           if (response.errno === ERR_OK) {
             this.seller = Object.assign({}, this.seller, response.data);

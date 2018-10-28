@@ -9,31 +9,22 @@ module.exports = {
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 		productionSourceMap: false,
-		// Gzip off by default as many popular static hosts such as
-		// Surge or Netlify already gzip all static assets for you.
-		// Before setting to `true`, make sure to:
-		// npm install --save-dev compression-webpack-plugin
 		productionGzip: false,
 		productionGzipExtensions: ['js', 'css'],
 		port: 9000,
         	sellUrl: 'http://sell.com',
-        	openidUrl: 'http://sqmax.natapp1.cc/sell/wechat/authorize',
-        	wechatPayUrl: 'http://sqmax.natapp1.cc/sell/pay/create'
+        	openidUrl: 'http://x18500i604.iok.la/sell/wechat/authorize',
+        	wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/create'
 	},
 	dev: {
 		env: require('./dev.env'),
-		port: 8088,
+		port: 80,
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 		proxyTable: {},
-		// CSS Sourcemaps off by default because relative paths are "buggy"
-		// with this option, according to the CSS-Loader README
-		// (https://github.com/webpack/css-loader#sourcemaps)
-		// In our experience, they generally work as expected,
-		// just be aware of this issue when enabling this option.
 		cssSourceMap: false,
-		sellUrl: 'http://127.0.0.1',
-		openidUrl: 'http://127.0.0.1',
-		wechatPayUrl: 'http://127.0.0.1'
+    sellUrl: 'http://192.168.1.45',
+    openidUrl: 'http://x18500i604.iok.la/sell/wechat/authorize',
+    wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/create'
 	}
 }
