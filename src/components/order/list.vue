@@ -149,7 +149,7 @@
             color: #333;
             font-weight: 700;
           }
-          
+
         }
         .title {
 

@@ -14,7 +14,7 @@ module.exports = {
 		port: 9000,
         	sellUrl: 'http://sell.com',
         	openidUrl: 'http://x18500i604.iok.la/sell/wechat/authorize',
-        	wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/create'
+        	wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/'
 	},
 	dev: {
 		env: require('./dev.env'),
@@ -25,6 +25,6 @@ module.exports = {
 		cssSourceMap: false,
     sellUrl: 'http://192.168.1.45',
     openidUrl: 'http://x18500i604.iok.la/sell/wechat/authorize',
-    wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/create'
+    wechatPayUrl: 'http://x18500i604.iok.la/sell/pay/'
 	}
 }

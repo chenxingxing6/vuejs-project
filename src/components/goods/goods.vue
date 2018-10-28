@@ -51,6 +51,8 @@
   import shopcart from 'components/shopcart/shopcart';
   import cartcontrol from 'components/cartcontrol/cartcontrol';
   import food from 'components/food/food';
+  var config = require('config')
+  config = process.env.NODE_ENV === 'development' ? config.dev : config.build
   const ERR_OK = 0;
 
   export default {
@@ -92,7 +94,19 @@
       }
     },
     created() {
-      console.log('ggggg', this.goods);
+      //如果url里有openid, 设置进cookie
+      var openid = this.$route.query.openid;
+      console.log(openid)
+      if(typeof openid !== 'undefined') {
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 3600 * 1000);//过期时间60分钟
+        document.cookie = 'openid=' + openid + ";expires=" + exp.toGMTString();
+      }
+      console.log(111);
+      //获取openid
+      if(getCookie('openid') == null) {
+        location.href = config.openidUrl + '?returnUrl=' +  encodeURIComponent(config.sellUrl + '/#/');
+      }
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
       let selectedGoods = window.selectedGoods;
       selectedGoods = selectedGoods ? JSON.parse(selectedGoods) : [];
@@ -177,6 +191,15 @@
       food
     }
   };
+
+  function getCookie(name) {
+    var arr;
+    var reg = new RegExp('(^| )' +name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+      return unescape(arr[2]);
+    else
+      return null;
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
